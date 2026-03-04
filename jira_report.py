@@ -106,10 +106,16 @@ def get_jira_client(url=None, user=None, token=None):
     return JiraAPIClient(jira_url, jira_user, jira_token)
 
 
-def get_worklogs_filtered(client, project_key, author_name, days=30):
-    date_n_days_ago = datetime.now() - timedelta(days=days)
-    date_str = date_n_days_ago.strftime('%Y-%m-%d')
-    date_limit_obj = date_n_days_ago.replace(hour=0, minute=0, second=0, microsecond=0)
+def get_worklogs_filtered(client, project_key, author_name, days=30, date_start=None, date_end=None):
+    if date_start and date_end:
+        date_limit_obj = datetime.strptime(date_start, '%Y-%m-%d')
+        date_end_obj = datetime.strptime(date_end, '%Y-%m-%d').replace(hour=23, minute=59, second=59)
+        date_str = date_start
+    else:
+        date_n_days_ago = datetime.now() - timedelta(days=days)
+        date_str = date_n_days_ago.strftime('%Y-%m-%d')
+        date_limit_obj = date_n_days_ago.replace(hour=0, minute=0, second=0, microsecond=0)
+        date_end_obj = None
     
     # JQL: Buscar issues en el proyecto que hayan sido actualizadas recientemente
     # Esto traerá issues donde se haya logueado tiempo (u otros cambios) recientemente.
@@ -192,7 +198,7 @@ def get_worklogs_filtered(client, project_key, author_name, days=30):
             except ValueError:
                 continue
             
-            if worklog_date >= date_limit_obj:
+            if worklog_date >= date_limit_obj and (date_end_obj is None or worklog_date <= date_end_obj):
                 seconds = worklog.get('timeSpentSeconds', 0)
                 if seconds:
                     hours = seconds / 3600.0

@@ -1,6 +1,15 @@
 @echo off
 echo 🚀 Iniciando Jira Report App...
 
+REM Comprobar fichero .env
+if not exist ".env" (
+    echo ❌ Error: No se encontró el fichero .env
+    echo    Copia .env.default a .env y rellena tus datos:
+    echo    copy .env.default .env
+    pause
+    exit /b
+)
+
 REM Comprobar Python
 python --version >nul 2>&1
 if %errorlevel% neq 0 (

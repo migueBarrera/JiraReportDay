@@ -4,6 +4,7 @@ Esta herramienta genera reportes de horas de Jira y muestra gráficos diarios.
 
 ## Requisitos
 - Tener Python 3 instalado en el sistema.
+- Copiar el .env.default y usar de nombre .env y setear la URL, nombre de usuario por defecto y codigo del proyecto
 
 ## Cómo ejecutar
 
