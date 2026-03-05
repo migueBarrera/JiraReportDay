@@ -1,9 +1,6 @@
 import os
 import requests
-import json
 from datetime import datetime, timedelta
-import collections
-# Eliminated explicit unnecessary imports
 
 # Cargar variables de entorno (aunque ahora se pasan principalmente por argumentos)
 # from dotenv import load_dotenv
