@@ -25,7 +25,7 @@ with st.sidebar:
     st.header("Configuración")
     
     jira_url = st.text_input("Jira URL", value=os.getenv("JIRA_URL", ""), placeholder="https://tu-jira.example.com")
-    jira_token = st.text_input("Personal Access Token", value="", type="password", help="Tu Token Personal (PAT).")
+    jira_token = st.text_input("Personal Access Token", value=os.getenv("JIRA_TOKEN", ""), type="password", help="Tu Token Personal (PAT).")
     
     st.markdown("---")
     st.subheader("Filtros")

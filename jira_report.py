@@ -98,7 +98,7 @@ def get_jira_client(url=None, user=None, token=None):
     # Wrapper para compatibilidad o inicialización simple
     jira_url = url or os.getenv('JIRA_URL')
     jira_user = user or os.getenv('JIRA_USER') or os.getenv('JIRA_EMAIL')
-    jira_token = token or os.getenv('JIRA_API_TOKEN') or os.getenv('JIRA_PASSWORD')
+    jira_token = token or os.getenv('JIRA_TOKEN') or os.getenv('JIRA_API_TOKEN') or os.getenv('JIRA_PASSWORD')
     
     return JiraAPIClient(jira_url, jira_user, jira_token)
 
